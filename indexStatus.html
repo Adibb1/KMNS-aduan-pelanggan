@@ -24,7 +24,6 @@
     ></script>
     <link rel="icon" type="image/x-icon" href="assets/logo.png" />
   </head>
-  <!-- ###################################################################### -->
   <style>
     body {
       background-image: url(assets/background.jpg);
@@ -37,17 +36,25 @@
     }
     td {
       border: 1px solid white;
-      padding: 0px 10px;
-    }
-    #data-container {
-      margin: 0px 10px;
     }
     .row-container {
       background-color: rgba(0, 0, 0, 0.7);
       color: white;
     }
+    .table-cell {
+      padding: 10px; /* Adjust the padding as needed */
+      border: 1px solid white; /* Ensure border consistency */
+    }
+    .table-row {
+      margin-bottom: 10px; /* Space between rows */
+    }
+    .scrollable-container {
+      max-height: 300px; /* Adjust the height as needed */
+      overflow-y: auto;
+      overflow-x: hidden;
+      width: 100%;
+    }
   </style>
-  <!-- ####################################################################### -->
   <body class="font-[Varela Round] flex text-white">
     <main
       id="content"
@@ -55,7 +62,7 @@
     >
       <div
         id="box"
-        class="h-[60%] w-full md:w-[80%] rounded-xl relative flex flex-col justify-center items-center gap-5 overflow-hidden"
+        class="h-[60%] w-full md:w-[80%] rounded-xl relative flex flex-col justify-start items-center gap-5 p-5"
       >
         <input
           type="text"
@@ -71,16 +78,14 @@
         </button>
         <div
           id="data-container"
-          class="flex relative text-sm md:text-sm justify-center items-center text-wrap"
+          class="scrollable-container flex-grow w-full mt-5 text-sm md:text-sm justify-center items-center text-wrap"
         ></div>
-        <div id="error-message" class="hidden">
+        <div id="error-message" class="hidden text-center mt-5">
           1) Sila semak semula nombor fon anda. <br />2) Mungkin terdapat
           sedikit kelewatan setelah anda membuat aduan di Google Form.
         </div>
       </div>
     </main>
-
-    <!-- #################################################################################################### -->
     <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
     <script src="script.js"></script>
   </body>

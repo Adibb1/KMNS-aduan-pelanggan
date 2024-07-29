@@ -15,84 +15,77 @@ function searchData() {
     searchTerm;
   var container = document.getElementById("data-container");
   var error = document.getElementById("error-message");
+
   // Fetch data from the Google Apps Script web app
   fetch(url)
     .then((response) => response.json())
     .then((data) => {
       // Process and display the data
-      console.log("test");
-
       if (data.length === 0) {
         error.classList.remove("hidden");
         container.classList.add("hidden");
-
-        console.log("not match");
       } else {
         error.classList.add("hidden");
         container.classList.remove("hidden");
-        console.log("match");
+
         // Clear previous table content
         container.innerHTML = "";
 
         var table = document.createElement("table");
-        table.classList.add(
-          "table-auto",
-          "w-full",
-          "sm:overflow-x-auto",
-          "flex",
-          "item-center"
-        ); // Set table styles
+        table.classList.add("table-auto", "w-full");
+
+        // Create table header
+        var headerRow = document.createElement("tr");
+        headerRow.classList.add("table-row");
+
+        var headers = [
+          "Bil",
+          "Tarikh Terima",
+          "Tarikh Tindakan",
+          "Nama/kategori Pengadu",
+          "PHONENUMBER",
+          "Skop/Bahagian",
+          "Perihal Aduan",
+          "Status Aduan/Catatan",
+        ];
+
+        headers.forEach(function (headerText) {
+          var headerCell = document.createElement("th");
+          headerCell.textContent = headerText;
+          headerCell.classList.add(
+            "table-cell",
+            "font-bold",
+            "bg-gray-800",
+            "text-white"
+          );
+          headerRow.appendChild(headerCell);
+        });
+
+        table.appendChild(headerRow);
 
         // Display data rows
         for (var i = 0; i < data.length; i++) {
-          console.log("print");
           var row = document.createElement("tr");
-          row.classList.add("flex", "item-center");
-
-          // Create a container element for horizontal layout
-          var rowContainer = document.createElement("div");
-          rowContainer.classList.add("row-container", "flex", "item-center"); // Add a custom class for styling
+          row.classList.add("table-row"); // Add margin bottom for spacing
 
           for (var j = 0; j < data[i].length; j++) {
-            console.log("print2");
             var cell = document.createElement("td");
             cell.textContent = data[i][j];
-
-            // Apply horizontal styling to cells
-            cell.classList.add("horizontal-cell");
+            cell.classList.add("table-cell"); // Apply padding class
 
             // Set green background for the last column
             if (j === data[i].length - 1) {
               cell.style.backgroundColor = "green";
             }
 
-            rowContainer.appendChild(cell);
+            row.appendChild(cell);
           }
 
-          // Append the row (with cells) to the container
-          row.appendChild(rowContainer);
-
-          // Append the container (with horizontal row) to the table
           table.appendChild(row);
         }
 
         // Append the table to the container
         container.appendChild(table);
-        console.log("print3");
-        // Add wrapper element with maximum height and overflow (if needed)
-        var tableWrapper = document.createElement("div");
-        tableWrapper.classList.add(
-          "h-60",
-          "w-72",
-          "md:w-[100%]",
-          "overflow-auto",
-          "flex",
-          "justify-center",
-          "item-center"
-        ); // Adjust height as needed
-
-        tableWrapper.appendChild(table);
-        container.appendChild(tableWrapper);
       }
     });
 }
